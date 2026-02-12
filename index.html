@@ -33,12 +33,22 @@
         #yes-btn { background: #4caf50; color: white; }
         #no-btn { background: #808080; color: white; }
 
-        #ready-overlay {
-            position: fixed; bottom: 30px; width: 100%;
-            display: flex; justify-content: center; pointer-events: none;
+        /* Updated Top-Right Button Style */
+        #top-right-overlay {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
         }
 
-        #ready-overlay button { pointer-events: auto; }
+        #top-right-overlay .btn-small {
+            padding: 10px 20px;
+            font-size: 14px;
+            background: rgba(255, 77, 109, 0.8); /* Semi-transparent pink */
+            color: white;
+            border-radius: 8px;
+            backdrop-filter: blur(4px);
+        }
 
         #scold-img { width: 160px; margin-top: 20px; display: none; border-radius: 15px; }
 
@@ -64,7 +74,6 @@
     const webhookURL = "https://discord.com/api/webhooks/1471384494723567660/_ol9yjORKfMRwZoYw_1oGie1ITTE6d9ipLlDnZE4M9YKrZFsUDlx2lpT8EglmI650Tmj";
 
     function startPresentation() {
-        // Unlock audio for browser
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         audioCtx.resume();
 
@@ -73,8 +82,8 @@
             <iframe class="full-screen-frame" 
                     src="https://www.canva.com/design/DAHBFEJqqCg/afoWJhIfax6AOi3MLD01XQ/view?embed" 
                     allow="autoplay; encrypted-media"></iframe>
-            <div id="ready-overlay">
-                <button class="btn" id="next-btn" onclick="askQuestion()">I'm finished reading →</button>
+            <div id="top-right-overlay">
+                <button class="btn btn-small" onclick="askQuestion()">Done Reading? →</button>
             </div>
         `;
     }
@@ -109,7 +118,6 @@
     }
 
     function showSuccess() {
-        // Send Notification to Discord
         fetch(webhookURL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -128,8 +136,8 @@
         const container = document.getElementById('main-container');
         container.innerHTML = `
             <div class="content-overlay">
-                <h1 style="font-size: 4rem;">YESSS!❤️</h1>
-                <p style="font-size: 1.5rem;">please wait a few seconds!</p>
+                <h1 style="font-size: 4rem;">YAY! ❤️</h1>
+                <p style="font-size: 1.5rem;">You've made me the happiest person alive!</p>
             </div>
         `;
         runAnimations();
